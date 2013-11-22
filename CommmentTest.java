@@ -27,7 +27,7 @@ public class CommmentTest {
 
    
 
-  
+  //
        
        // forum.viewAllTopics();
           forum.deleteTopic(0);
