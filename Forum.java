@@ -3,12 +3,34 @@ public class Forum {
 
 	String name;
 	ArrayList<TopicPost> tppost;
+	ArrayList<Account> users;
 
 	public Forum(String name) { 
 		this.name = name ;
 		tppost = new ArrayList<TopicPost> ();
 	}
+	/* Adds a User to the forum */
+	public void addUser(Account useraccount)
+	{
+	users.add(useraccount);
+		
+	}
+	/*Searches for a user added to the forum */
+	private int searchUser(int id, int start, int end) {
+		if((end-start) < 0)
+			return -1;
 
+		int mid = (end-start)/2;
+		Account us = users.get(mid);
+
+		if(id == us.getID()) {
+			return mid;
+		} else if (id > us.getID()) {
+			return searchTopic(id, mid+1, end);
+		} else {
+			return searchTopic(id, start, mid-1);
+		}
+	}
 	/* Adds a topic to the forum */
 	public void addTopic(TopicPost topic) {
 		tppost.add(topic);
@@ -16,6 +38,7 @@ public class Forum {
 
 	/* Deletes a topic from the forum */
 	public boolean deleteTopic(int id){
+		//Need to call search user to check if the client trying to delete the topic is himself
 		int start = 0;
 		int end = tppost.size() - 1;
 
@@ -61,11 +84,16 @@ public class Forum {
 	/* Prints out the name of all the topics in the database*/
 	public String viewAllTopics()
 	{
+		 if (tppost.isEmpty())//checks if list is empty
+		      
+		    {return "No topics have been added to the forum";}
+		 else{
 		String topics = name+"\n";
 		for(int i=0; i<tppost.size(); i++) {
 			topics += tppost.get(i).getTitle() + "\n";
 		}
 		
 		return topics;
+		 }
 	}
 }
