@@ -1,15 +1,23 @@
 import java.util.*;
 
 public class Account {
-
+    
+	private int id; 
 	private String user;
 	private String password;
 	private ArrayList<Post> myposts;
 
-	public Account(String user, String password) { 
+	public Account(int id,String user, String password) { 
+		this.id = id;
 		this.user = user;
 		this.password = password;
 		myposts = new ArrayList<Post>();
+	}
+	
+	public int getID()
+	{
+		
+		return id;
 	}
 	public String getUser()
 	{
